@@ -1,4 +1,4 @@
-Hello world script
+Testing Workflow
 ====================
 
-A simple script showing the basic Hello World! example for the Nextflow framework. 
+A simple worksflow to test Seqera platform integrations with several backends. 
