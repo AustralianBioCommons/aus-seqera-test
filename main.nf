@@ -76,9 +76,7 @@ process MULTIQC {
 
 workflow {
   
-  def input_bams = params.input
-  
-  Channel.fromPath("${input_bams}").set{input_ch}
+  Channel.fromPath("${params.input}").splitCsv( header: true ).set{input_ch}
 
   SAMTOOLS_INDEX(
     input_ch
