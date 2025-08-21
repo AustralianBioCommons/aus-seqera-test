@@ -90,7 +90,7 @@ workflow {
   )
 
   MULTIQC(
-    SAMTOOLS_STATS.out.stats
+    SAMTOOLS_STATS.out.stats.collect()
   )
 
 
