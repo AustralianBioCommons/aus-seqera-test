@@ -76,7 +76,10 @@ process MULTIQC {
 
 workflow {
   
-  Channel.fromPath("${params.input}").splitCsv( header: true ).set{input_ch}
+  Channel.fromPath("${params.input}")
+    .splitCsv( header: true )
+    .map{file(it)}
+    .set{input_ch}
 
   SAMTOOLS_INDEX(
     input_ch
