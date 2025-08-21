@@ -78,9 +78,9 @@ workflow {
   
   Channel.fromPath("${params.input}")
     .splitCsv( header: true )
-    .map{file(it)}
+    .map{file(it["bam"])}
     .set{input_ch}
-
+    
   SAMTOOLS_INDEX(
     input_ch
   )
