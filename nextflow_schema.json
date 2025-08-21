@@ -1,0 +1,39 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/sarek/master/nextflow_schema.json",
+    "title": "nf-core/sarek pipeline parameters",
+    "description": "An open-source analysis pipeline to detect germline or somatic variants from whole genome or targeted sequencing",
+    "type": "object",
+    "$defs": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "help_text": "Specify input samplesheet, step and output folder.",
+            "required": ["input", "outdir"],
+            "properties": {
+                "input": {
+                    "description": "Path to bam files.",
+                    "help_text": "",
+                    "fa_icon": "fas fa-file-csv",
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "pattern": "^\\S+\\.bam$"
+                },
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
+                    "fa_icon": "fas fa-folder-open"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/input_output_options"
+        }
+    ]
+}
