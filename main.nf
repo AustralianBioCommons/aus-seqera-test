@@ -75,7 +75,10 @@ process MULTIQC {
 }
 
 workflow {
-  Channel.fromPath("${params.input}").set{input_ch}
+  
+  def input_bams = params.input
+  
+  Channel.fromPath("${input_bams}").set{input_ch}
 
   SAMTOOLS_INDEX(
     input_ch
