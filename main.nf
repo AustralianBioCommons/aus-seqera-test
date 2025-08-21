@@ -75,7 +75,7 @@ process MULTIQC {
 }
 
 workflow {
-  Channel.fromPath("$projectDir/data/*bam").set{input_ch}
+  Channel.fromPath("${params.bams}").set{input_ch}
 
   SAMTOOLS_INDEX(
     input_ch
