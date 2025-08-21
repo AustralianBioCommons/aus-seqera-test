@@ -48,6 +48,32 @@ process SAMTOOLS_STATS {
 
     """
 }
+
+process MULTIQC {
+    tag "all-run"
+
+    conda "bioconda:: multiqc=1.30"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/multiqc:1.30--pyhdfd78af_1' :
+        'biocontainers/multiqc:1.30--pyhdfd78af_1' }"
+
+    input:
+    path  multiqc_files, stageAs: "?/*"
+    
+    output:
+    path "*multiqc_report.html", emit: report
+    
+    when:
+    task.ext.when == null || task.ext.when
+
+    script:
+    """
+    multiqc \\
+        --force \\
+        .
+    """
+}
+
 workflow {
   Channel.fromPath("$projectDir/data/*bam").set{input_ch}
 
@@ -63,6 +89,9 @@ workflow {
     ).map{[it[1], it[2]]}
   )
 
+  MULTIQC(
+    SAMTOOLS_STATS.out.stats
+  )
 
 
 }
